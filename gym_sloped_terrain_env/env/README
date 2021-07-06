@@ -1,0 +1,49 @@
+ERROR 1-->
+Traceback (most recent call last):
+  File "stochlite_mujoco_env.py", line 3, in <module>
+    import mujoco_env
+  File "/home/stoch-lab/stochlite_mujoco_env/mujoco_env.py", line 12, in <module>
+    import mujoco_py
+  File "/home/stoch-lab/.local/lib/python3.6/site-packages/mujoco_py/__init__.py", line 3, in <module>
+    from mujoco_py.builder import cymj, ignore_mujoco_warnings, functions, MujocoException
+  File "/home/stoch-lab/.local/lib/python3.6/site-packages/mujoco_py/builder.py", line 510, in <module>
+    cymj = load_cython_ext(mujoco_path)
+  File "/home/stoch-lab/.local/lib/python3.6/site-packages/mujoco_py/builder.py", line 69, in load_cython_ext
+    _ensure_set_env_var("LD_LIBRARY_PATH", lib_path)
+  File "/home/stoch-lab/.local/lib/python3.6/site-packages/mujoco_py/builder.py", line 119, in _ensure_set_env_var
+    var_name, var_name, lib_path))
+Exception: 
+Missing path to your environment variable. 
+Current values LD_LIBRARY_PATH=
+Please add following line to .bashrc:
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/stoch-lab/.mujoco/mujoco200/bin
+
+SOLUTION-->
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/stoch-lab/.mujoco/mujoco200/bin
+source .bashrc
+
+=======================================================================================================================
+ERROR 2-->
+python3 stochlite_mujoco_env.py 
+ERROR: ld.so: object '/usr/lib/x86_64-linux-gnu/libGLEW.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+ERROR: ld.so: object '/usr/lib/x86_64-linux-gnu/libGLEW.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+ERROR: ld.so: object '/usr/lib/x86_64-linux-gnu/libGLEW.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+ERROR: ld.so: object '/usr/lib/x86_64-linux-gnu/libGLEW.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+ERROR: ld.so: object '/usr/lib/x86_64-linux-gnu/libGLEW.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+ERROR: ld.so: object '/usr/lib/x86_64-linux-gnu/libGLEW.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+ERROR: ld.so: object '/usr/lib/x86_64-linux-gnu/libGLEW.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+ERROR: ld.so: object '/usr/lib/x86_64-linux-gnu/libGLEW.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+ERROR: ld.so: object '/usr/lib/x86_64-linux-gnu/libGLEW.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+ERROR: ld.so: object '/usr/lib/x86_64-linux-gnu/libGLEW.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+ERROR: ld.so: object '/usr/lib/x86_64-linux-gnu/libGLEW.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+Creating window glfw
+ERROR: GLEW initalization error: Missing GL version
+
+Press Enter to exit ...Killed
+
+SOLUTION-->
+sudo apt-get install libglew-dev
+
+=======================================================================================================================
+
+

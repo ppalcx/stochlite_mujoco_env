@@ -1,0 +1,182 @@
+<mujoco model="stoch25_description">
+    <compiler angle="radian" meshdir="meshes" eulerseq="xyz" />
+    <size njmax="500" nconmax="100" />
+    <asset>
+        <mesh name="base" file="body.STL" scale="0.001 0.001 0.001" />
+        <mesh name="fla" file="abd.STL"   scale="0.001 0.001 0.001" />
+        <mesh name="flh" file="hip.STL"   scale="0.001 0.001 0.001" />
+        <mesh name="flk" file="knee.STL"  scale="0.001 0.001 0.001" />
+        <mesh name="flf" file="foot.STL"  scale="0.001 0.001 0.001" />
+        <mesh name="fra" file="abd.STL"   scale="0.001 0.001 0.001" />
+        <mesh name="frh" file="hip.STL"   scale="0.001 0.001 0.001" />
+        <mesh name="frk" file="knee.STL"  scale="0.001 0.001 0.001" />
+        <mesh name="frf" file="foot.STL"  scale="0.001 0.001 0.001" />
+        <mesh name="bla" file="abd.STL"   scale="0.001 0.001 0.001" />
+        <mesh name="blh" file="hip.STL"   scale="0.001 0.001 0.001" />
+        <mesh name="blk" file="knee.STL"  scale="0.001 0.001 0.001" />
+        <mesh name="blf" file="foot.STL"  scale="0.001 0.001 0.001" />
+        <mesh name="bra" file="abd.STL"   scale="0.001 0.001 0.001" />
+        <mesh name="brh" file="hip.STL"   scale="0.001 0.001 0.001" />
+        <mesh name="brk" file="knee.STL"  scale="0.001 0.001 0.001" />
+        <mesh name="brf" file="foot.STL"  scale="0.001 0.001 0.001" />
+        <mesh name="wedge5" file="ramp_5.STL" scale="1.2 1.2 1.2" />
+        <mesh name="wedge7" file="ramp_5.STL" scale="1.337 1.337 1.337" />
+        <mesh name="wedge9" file="ramp_5.STL" scale="1.400 0.001 0.001" />
+        <mesh name="wedge11" file="ramp_5.STL" scale="1.464 0.001 0.001" />
+        <mesh name="wedge13" file="ramp_5.STL" scale="1.630 0.001 0.001" />
+        <mesh name="wedge15" file="ramp_5.STL" scale="1.807 0.001 0.001" />
+
+        <! -- Write your comment-->
+        <! -- define the solidwoks file-->
+ 	<texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="512"/>
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="512" height="512" mark="cross" markrgb=".8 .8 .8"/>
+        <texture name="texgeom" type="cube" builtin="flat" mark="cross" width="127" height="1278"
+            rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" markrgb="1 1 1" random="0.01"/>
+        <material name="matplane" reflectance="0.3" texture="texplane" texrepeat="1 1" texuniform="true"/>
+        <material name="matgeom" texture="texgeom" texuniform="true" rgba="0.8 0.6 .4 1"/>
+    </asset>
+    
+    <equality>
+		<weld body1="base" solimp="0.02 0.1 0.05" solref="0.06 1"></weld>
+	</equality>
+ 
+    <!-- <equality>
+        <joint  active="true" joint1="FR_abd_joint" solimp="0.02 0.1 0.05" solref="0.06 1"></joint>
+    </equality> -->
+
+    <equality>
+        <joint name="FR_abd_joint" active="true" joint1="FR_abd_joint"/>
+    </equality>
+
+    <equality>
+        <joint name="FR_abd_joint" active="true" joint1="FR_abd_joint" solimp="0.02 0.1 0.05" solref="0.06 1"></joint>
+    </equality>
+    
+    <worldbody>
+	<geom name="floor" pos="0 0 0" size="0 0 .25" type="plane" material="matplane" condim="3"/>
+	<light directional="false" diffuse=".2 .2 .2" specular="0 0 0" pos="0 0 5" dir="0 0 -1" castshadow="false"/>
+    <geom friction="2" conaffinity="1" condim="3" name='wedge5' pos="0 0 0" euler="90 0 0" rgba="1 0 0 0.5" type='mesh' mesh='wedge5'/>
+    <geom friction="2" conaffinity="1" condim="3" name='wedge7' pos="1 0 0" euler="90 0 0" rgba="1 0 0 0" type='mesh' mesh='wedge7'/>
+    <geom friction="2" conaffinity="1" condim="3" name='wedge9' pos="4 2.5 0" euler="90 0 0" rgba="1 0 0 0" type='mesh' mesh='wedge9'/>
+    <geom friction="2" conaffinity="1" condim="3" name='wedge11' pos="20 2.5 0" euler="90 0 0" rgba="1 0 0 0" type='mesh' mesh='wedge11'/>
+    <geom friction="2" conaffinity="1" condim="3" name='wedge13' pos="20 2.5 0" euler="90 0 0" rgba="1 0 0 0" type='mesh' mesh='wedge13'/>
+    <geom friction="2" conaffinity="1" condim="3" name='wedge15' pos="20 2.5 0" euler="90 0 0" rgba="1 0 0 0" type='mesh' mesh='wedge15'/>
+        <light mode="targetbodycom" target="base" directional="false" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="0 0 4.0" dir="0 0 -1"/>
+        <body name="base" pos="0 0 1">
+		<freejoint name="root"/>
+        
+        <! --freejoint name="root"  --remove to make the body fix in air-->
+
+        
+            <inertial pos="0 0.0002 -0.0005" quat="0 0 0 1" mass="0.46" diaginertia="0.012 0.014 0.003" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="1 0.423529 0.0392157 1" mesh="base" quat="0 0 -1 1" />
+            <geom size="0.105 0.195 0.035" pos="0 -0.005 0" type="box" rgba="1 0.423529 0.0392157 0"  group="2" />
+            
+            <body name="FR_abd" pos="0.096 0.1675 -0.002" quat="0 0 1 1">
+                <inertial pos="0.017 0.0 0.002" quat="0 0 0 1" mass="0.014" diaginertia="0.0001 0.0001 0.0001" />
+                <joint name="FR_abd_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-3.14 3.14" />
+                <geom quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.2 0.2 0.2 1" mesh="fra" />
+                <body name="FR_hip" pos="-0.08 -0. 0." euler="0 0 0">
+                    <inertial pos="0.025 -0.073 0" quat="0 0 0 1" mass="0.194" diaginertia="0.001 0.0001 0.001" />
+                    <joint name="FR_hip_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-3.14 3.14" />
+                    <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.2 0.2 0.2 1" mesh="frh" />
+                    <geom size="0.0235 0.082 0.022" pos="0.025 -0.072 0" quat="0 0 0 1" type="box" rgba="0.2 0 0 0" group="2" />
+                    <body name="FR_knee" pos="0.05 -0.15 0" euler="0 1.57  0">
+                        <inertial pos="0 -0.068 0.013" quat="0 0 0 1" mass="0.043" diaginertia="0.0001 0.0001 0.0001" />
+                        <joint name="FR_knee_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-3.14 3.14" />
+                        <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="frk" />
+                        <geom size="0.013 0.075 0.01" pos="0 -0.07 0.02" quat="0 0 0 1" type="box" rgba="0.2 0 0 0" group="2" />
+                        <body name="FR_foot" pos="0 -0.15 0.02" euler="0 0  0">
+                            <inertial pos="0 -0.068 0.013" quat="0 0 0 1" mass="0.043" diaginertia="0.0001 0.0001 0.0001" />
+                            <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="frf" />
+                            <geom size="0.016" pos="0 0 0" quat="0 0 0 1" type="sphere" rgba="0.2 0 0 0" group="2" />
+                        </body>
+                    </body>
+                </body>
+            </body> 
+            <body name="FL_abd"  pos="-0.096 0.1675 -0.002" euler="-1.57 0 0">
+                <inertial pos="0.017 0.0 0.002" quat="0 0 0 1" mass="0.014" diaginertia="0.0001 0.0001 0.0001" />
+                <joint name="FL_abd_joint" pos="0 0 0" axis="0 0 -1" limited="true" range="-3.14 3.14" />
+                <geom quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.2 0.2 0.2 1" mesh="fla" />
+                <body name="FL_hip" pos="-0.08 -0. 0." euler="3.14 0 0">
+                    <inertial pos="0.025 -0.073 0" quat="0 0 0 1" mass="0.194" diaginertia="0.001 0.0001 0.001" />
+                    <joint name="FL_hip_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-3.14 3.14" />
+                    <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.2 0.2 0.2 1" mesh="frh" />
+                    <geom size="0.0235 0.082 0.022" pos="0.025 -0.072 0" quat="0 0 0 1" type="box" rgba="0.2 0 0 0" group="2" />
+                    <body name="FL_knee" pos="0.05 -0.15 0" euler="0 1.57  0">
+                        <inertial pos="0 -0.068 0.013" quat="0 0 0 1" mass="0.043" diaginertia="0.001 0.0001 0.001" />
+                        <joint name="FL_knee_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-3.14 3.14" />
+                        <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="flk" />
+                        <geom size="0.013 0.075 0.01" pos="0 -0.07 0.02" quat="0 0 0 1" type="box" rgba="0.2 0 0 0" group="2" />
+                        <body name="FL_foot" pos="0 -0.15 0.02" euler="0 0  0">
+                            <inertial pos="0 -0.068 0.013" quat="0 0 0 1" mass="0.043" diaginertia="0.0001 0.0001 0.0001" />
+                            <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="frf" />
+                            <geom size="0.016" pos="0 0 0" quat="0 0 0 1" type="sphere" rgba="0.2 0 0 0" group="2" />
+                        </body>
+                    </body>
+                </body>
+            </body>
+            <body name="BR_abd"  pos="0.096 -0.1675 -0.002" euler="1.57 0 -3.14">
+                <inertial pos="0.017 0.0 0.002" quat="0 0 0 1" mass="0.014" diaginertia="0.0001 0.0001 0.0001" />
+                <joint name="BR_abd_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-3.14 3.14" />
+                <geom quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.2 0.2 0.2 1" mesh="bra" />
+                <body name="BR_hip" pos="-0.08 -0. 0.">
+                    <inertial pos="0.025 -0.073 0" quat="0 0 0 1" mass="0.194" diaginertia="0.001 0.0001 0.001" />
+                    <joint name="BR_hip_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-3.14 3.14" />
+                    <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.2 0.2 0.2 1" mesh="brh" />
+                    <geom size="0.0235 0.082 0.022" pos="0.025 -0.072 0" quat="0 0 0 1" type="box" rgba="0.2 0 0 0" group="2" />
+                    <body name="BR_knee" pos="0.05 -0.15 0" euler="0 1.57  0">
+                        <inertial pos="0 -0.068 0.013" quat="0 0 0 1" mass="0.043" diaginertia="1e-5 1e-5 1e-5" />
+                        <joint name="BR_knee_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-3.14 3.14" />
+                        <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="brk" />
+                        <geom size="0.013 0.075 0.01" pos="0 -0.07 0.02" quat="0 0 0 1" type="box" rgba="0.2 0 0 0" group="2" />
+                        <body name="BR_foot" pos="0 -0.15 0.02" euler="0 0  0">
+                            <inertial pos="0 -0.068 0.013" quat="0 0 0 1" mass="0.043" diaginertia="0.0001 0.0001 0.0001" />
+                            <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="frf" />
+                            <geom size="0.016" pos="0 0 0" quat="0 0 0 1" type="sphere" rgba="0.2 0 0 0" group="2" />
+                        </body>
+                    </body>
+                </body> 
+            </body>
+            <body name="BL_abd" pos="-0.096 -0.1675 -0.002" euler="1.57 0 0">
+                <inertial pos="0.017 0.0 0.002" quat="0 0 0 1" mass="0.014" diaginertia="0.0001 0.0001 0.0001" />
+                <joint name="BL_abd_joint" pos="0 0 0" axis="0 0 -1" limited="true" range="-3.14 3.14" />
+                <geom quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.2 0.2 0.2 1" mesh="bla" />
+                <body name="BL_hip" pos="-0.08 -0. 0." euler="3.14 0 0">
+                    <inertial pos="0.025 -0.073 0" quat="0 0 0 1" mass="0.194" diaginertia="0.001 0.0001 0.001" />
+                    <joint name="BL_hip_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-3.14 3.14" />
+                    <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.2 0.2 0.2 1" mesh="frh" />
+                    <geom size="0.0235 0.082 0.022" pos="0.025 -0.072 0" quat="0 0 0 1" type="box" rgba="0.2 0 0 0" group="2" />
+                    <body name="BL_knee" pos="0.05 -0.15 0" euler="0 1.57  0">
+                        <inertial pos="0 -0.068 0.013" quat="0 0 0 1" mass="0.043" diaginertia="1e-5 1e-5 1e-5" />
+                        <joint name="BL_knee_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-3.14 3.14" />
+                        <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="blk" />
+                        <geom size="0.013 0.075 0.01" pos="0 -0.07 0.02" quat="0 0 0 1" type="box" rgba="0.2 0 0 0" group="2" />
+                        <body name="BL_foot" pos="0 -0.15 0.02" euler="0 0  0">
+                            <inertial pos="0 -0.068 0.013" quat="0 0 0 1" mass="0.043" diaginertia="0.0001 0.0001 0.0001" />
+                            <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="frf" />
+                            <geom size="0.016" pos="0 0 0" quat="0 0 0 1" type="sphere" rgba="0.2 0 0 0" group="2" />
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody> 
+   <actuator>
+        <motor name="FR_abd_joint"       gear="100" joint="FR_abd_joint" />
+        <motor name="FR_hip_joint"       gear="100" joint="FR_hip_joint" />
+        <motor name="FR_knee_joint"      gear="100" joint="FR_knee_joint"/>
+        <motor name="FL_abd_joint"       gear="100" joint="FL_abd_joint" />
+        <motor name="FL_hip_joint"       gear="100" joint="FL_hip_joint" />
+        <motor name="FL_knee_joint"      gear="100" joint="FL_knee_joint"/>
+        <motor name="BR_abd_joint"       gear="100" joint="BR_abd_joint" />
+        <motor name="BR_hip_joint"       gear="100" joint="BR_hip_joint" />
+        <motor name="BR_knee_joint"      gear="100" joint="BR_knee_joint"/>
+        <motor name="BL_abd_joint"       gear="100" joint="BL_abd_joint" />
+        <motor name="BL_hip_joint"       gear="100" joint="BL_hip_joint" />
+        <motor name="BL_knee_joint"      gear="100" joint="BL_knee_joint"/>
+    </actuator>
+    <keyframe>
+        <!-- <key time="0" qpos="0.0 0.0 0.0" /> -->
+    </keyframe>
+</mujoco>
